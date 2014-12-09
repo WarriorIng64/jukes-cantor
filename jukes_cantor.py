@@ -21,12 +21,13 @@
 
 import argparse
 
+from fasta_processing import get_sequences
 from jc_algorithm import calculate_jukes_cantor
 
 version = "v0.0.0"
 desc = "jukes-cantor " + version
 desc += "\nPerforms the Jukes-Cantor algorithm on provided FASTA sequences."
-input_help = "input file path containing all sequences in FASTA format"
+input_help = "input file path containing all aligned sequences in FASTA format"
 
 #*****************************************************************************
 # Main program
@@ -38,16 +39,7 @@ parser = argparse.ArgumentParser(
             )
 parser.add_argument("sequences-file", help=input_help, type=str)
 
-if os.path.exists(args.sequences_file):
-    try:
-        with open(args.sequences_file, 'r') as infile:
-            # TODO: Read sequences and store them
-    except IOError:
-        print "Error: could not open supplied file: " + args.sequence_file
-        exit(1)
-else:
-    print "Error: supplied input file path does not exist: " + args.sequence_file
-    exit(1)
+sequences = get_sequences(args.sequences_file)
 
 # Perform Jukes-Cantor calculations on supplied sequences
 # TODO
