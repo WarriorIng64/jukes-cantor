@@ -39,7 +39,7 @@ parser = argparse.ArgumentParser(
             )
 parser.add_argument("sequences-file", help=input_help, type=str)
 
-sequences = get_sequences(args.sequences_file)
+labels, sequences = get_sequences(args.sequences_file)
 
 # Perform Jukes-Cantor calculations on supplied sequences
 # TODO
