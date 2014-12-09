@@ -25,7 +25,7 @@ from fasta_processing import get_sequences
 from jc_algorithm import ScoringMatrix
 from jc_output import output_matrix
 
-version = "v0.0.0"
+version = "v1.0.0"
 desc = "jukes-cantor " + version
 desc += "\nPerforms the Jukes-Cantor algorithm on provided FASTA sequences."
 input_help = "input file path containing all aligned sequences in FASTA format"
