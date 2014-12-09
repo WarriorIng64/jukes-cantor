@@ -31,12 +31,12 @@ def formatted_jc_string(jukes_cantor_score):
 def output_matrix(labels, jc_matrix, outfile=""):
     '''Given sequence labels and a pre-computed Jukes-Cantor scoring matrix,
     print all the scores in the terminal.'''
-    if outfile != "":
+    sys.stdout = sys.__stdout__
+    if outfile != "" and outfile != None:
         try:
             sys.stdout = open(outfile, 'w')
         except Exception as e:
             print "Failed to redirect output to", outfile
-            print e
             exit(1)
     print " " * (FIELD_WIDTH),
     for label in labels:
@@ -47,3 +47,4 @@ def output_matrix(labels, jc_matrix, outfile=""):
         for j in range(jc_matrix.get_size()):
             print formatted_jc_string(jc_matrix.get_score(i, j)),
         print
+    sys.stdout = sys.__stdout__
