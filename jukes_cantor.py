@@ -21,6 +21,8 @@
 
 import argparse
 
+from jc_algorithm import calculate_jukes_cantor
+
 version = "v0.0.0"
 desc = "jukes-cantor " + version
 desc += "\nPerforms the Jukes-Cantor algorithm on provided FASTA sequences."
