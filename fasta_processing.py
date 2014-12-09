@@ -53,6 +53,8 @@ def extract_sequences_from_lines(lines):
                 current_sequence = ""
             else:
                 current_sequence += line.upper().strip()
+    if current_sequence != "":
+        sequences.append(current_sequence)
     return (labels, sequences)
 
 #*****************************************************************************
@@ -61,6 +63,8 @@ def extract_sequences_from_lines(lines):
 if __name__ == "__main__":
     input_path = raw_input("Please enter the test filename: ")
     labels, sequences = get_sequences(input_path)
-    print labels
-    print sequences
+    for i in range(len(labels)):
+        print "Label:", labels[i]
+        print "Sequence:"
+        print sequences[i]
     exit(0)
