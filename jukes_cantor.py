@@ -22,7 +22,8 @@
 import argparse
 
 from fasta_processing import get_sequences
-from jc_algorithm import calculate_jukes_cantor
+from jc_algorithm import ScoringMatrix
+from jc_output import output_matrix
 
 version = "v0.0.0"
 desc = "jukes-cantor " + version
@@ -42,9 +43,9 @@ parser.add_argument("sequences-file", help=input_help, type=str)
 labels, sequences = get_sequences(args.sequences_file)
 
 # Perform Jukes-Cantor calculations on supplied sequences
-# TODO
+jc_matrix = ScoringMatrix(sequences)
 
 # Print results in a matrix format
-# TODO
+output_matrix(labels, jc_matrix)
 
 exit(0)
