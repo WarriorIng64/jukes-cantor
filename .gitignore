@@ -52,3 +52,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Provided test data
+additional_test_data_Ch5.fasta
