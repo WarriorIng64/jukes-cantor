@@ -38,14 +38,16 @@ parser = argparse.ArgumentParser(
             formatter_class=argparse.RawDescriptionHelpFormatter,
             description=desc
             )
-parser.add_argument("sequences-file", help=input_help, type=str)
+parser.add_argument("sequencesfile", help=input_help, type=str)
+parser.add_argument("-o", "--outfile", help="output file", type=str)
+args = parser.parse_args()
 
-labels, sequences = get_sequences(args.sequences_file)
+labels, sequences = get_sequences(args.sequencesfile)
 
 # Perform Jukes-Cantor calculations on supplied sequences
 jc_matrix = ScoringMatrix(sequences)
 
 # Print results in a matrix format
-output_matrix(labels, jc_matrix)
+output_matrix(labels, jc_matrix, args.outfile)
 
 exit(0)

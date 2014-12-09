@@ -19,6 +19,30 @@
 # Christopher Kyle Horton (000516274), chorton@ltu.edu
 # Last modified: 12/9/2014
 
+import math
+
+def calculate_jukes_cantor(sequence1, sequence2):
+    '''Calculate the Jukes-Cantor distance between the two provided aligned
+    sequences.
+    
+    Based on pseudocode provided on page 116 of the textbook.'''
+    
+    # Initialization
+    difference_counter = 0
+    length_counter = 0
+    
+    # Step 1: Count differences between sequences, ignoring gaps
+    for i in range(min(len(sequence1), len(sequence2))):
+        if sequence1[i] != '-' and sequence2[i] != '-':
+            length_counter += 1
+            if sequence1[i] != sequence2[i]:
+                difference_counter += 1
+    
+    # Step 2: Calculate and return results
+    substitutions_fraction = float(difference_counter) / float(length_counter)
+    jukes = -3.0/4.0 * math.log(1 - (4.0/3.0 * substitutions_fraction))
+    return jukes
+
 class ScoringMatrixCell:
     '''A class implementing individual cells within the scoring matrix.'''
     def __init__(self, score=0.0):
@@ -48,8 +72,9 @@ class ScoringMatrix:
         else:
             self.matrix = [[ScoringMatrixCell() for x in range(self.matrix_size)]
                            for x in range(self.matrix_size)]
+            self.calculate_scores(sequences)
     
-    def get_size(self)
+    def get_size(self):
         '''Returns the number of sequences used to generate this matrix.'''
         return self.matrix_size
     
@@ -73,37 +98,5 @@ class ScoringMatrix:
         '''Calculates the scores for all cells given the sequences.'''
         for i in range(len(sequences)):
             for j in range(len(sequences)):
-                set_score(i, j,
-                          calculate_jukes_cantor(sequences[i], sequences[j]))
-
-def calculate_jukes_cantor(sequence1, sequence2):
-    '''Calculate the Jukes-Cantor distance between the two provided aligned
-    sequences.
-    
-    Based on pseudocode provided on page 116 of the textbook.'''
-    
-    # Initialization
-    difference_counter = 0
-    length_counter = 0
-    
-    # Step 1: Count differences between sequences, ignoring gaps
-    for i in range(min(len(sequence1), len(sequence2))):
-        if sequence1[i] != '-' and sequence2[i] != '-':
-            length_counter += 1
-            if sequence1[i] != sequence2[i]:
-                difference_counter += 1
-    
-    # Step 2: Calculate and return results
-    substitutions_fraction = float(difference_counter) / float(length_counter)
-    jukes = -3.0/4.0 * math.log(1 - (4.0/3.0 * substitutions_fraction))
-    return jukes
-
-def calculate_matrix(sequences):
-    '''Given a list list of sequences, construct a matrix of the Jukes-Cantor
-    scores between all sequences. The matrix itself is a list of lists.'''
-    if len(sequences) < 1:
-        return []
-    elif len(sequences) < 2:
-        return [0.0]
-    else:
-        # Non-trivial case
+                self.set_score(i, j,
+                         calculate_jukes_cantor(sequences[i], sequences[j]))
